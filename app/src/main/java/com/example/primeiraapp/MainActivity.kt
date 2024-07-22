@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
             binding.btLogin.setOnClickListener {
                 val nome = binding.editNome.text.toString()
-                val senha = binding.editSenha.text.toString()
+                val  senha = binding.editSenha.text.toString()
 
                 when {
                     nome.isEmpty() -> {

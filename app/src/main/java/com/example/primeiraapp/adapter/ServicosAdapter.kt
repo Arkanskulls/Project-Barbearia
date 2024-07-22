@@ -1,6 +1,7 @@
 package com.example.primeiraapp.adapter
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.primeiraapp.databinding.ServicosItemBinding
@@ -11,16 +12,20 @@ class ServicosAdapter(private val context: Context, private val listaServicos: M
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ServicosViewHolder {
-        TODO("Not yet implemented")
+        val itemLista = ServicosItemBinding.inflate(LayoutInflater.from(context),parent,false)
+        return ServicosViewHolder(itemLista)
+
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount() = listaServicos.size
 
     override fun onBindViewHolder(holder: ServicosViewHolder, position: Int) {
-        TODO("Not yet implemented")
-    }inner class  ServicosViewHolder(binding: ServicosItemBinding): RecyclerView.ViewHolder(binding.root){
+        holder.imgServico.setImageResource(listaServicos[position].img!!)
+        holder.txtServico.text = listaServicos[position].nome
+    }
 
+    inner class  ServicosViewHolder(binding: ServicosItemBinding): RecyclerView.ViewHolder(binding.root){
+        val imgServico = binding.imgServicos
+        val txtServico = binding.txtServicos
     }
 }

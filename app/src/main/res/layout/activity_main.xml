@@ -71,7 +71,7 @@
         android:textStyle="bold"
         android:padding="15dp"
         app:cornerRadius="15dp"
-        android:background="@color/alizarin"
+        android:backgroundTint="@color/alizarin"
         android:layout_marginTop="20dp"
         android:layout_marginStart="100dp"
         android:layout_marginEnd="100dp"

@@ -21,7 +21,7 @@ class Home : AppCompatActivity() {
         supportActionBar?.hide()
         val nome = intent.extras?.getString("nome")
 
-        binding.txtNomeUsuario.text = "Bem-Vindo Boca de Pelo,$nome"
+        binding.txtNomeUsuario.text = "Bem-Vindo Boca de Pelo, $nome"
         val recyclerViewServicos = binding.recyclerViewServicos
         recyclerViewServicos.layoutManager = GridLayoutManager(this,2)
         servicosAdapter = ServicosAdapter(this,listaServicos)

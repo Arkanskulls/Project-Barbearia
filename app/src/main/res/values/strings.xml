@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PrimeiraApp</string>
+    <string name="n_o_tem_login_cadastre_se">Não tem login? Cadastre-se</string>
 </resources>

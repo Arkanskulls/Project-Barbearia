@@ -1,35 +1,26 @@
-package com.example.primeiraapp
+package com.example.primeiraapp.view
 
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.primeiraapp.databinding.ActivityMainBinding
+import com.example.primeiraapp.MainActivity
+import com.example.primeiraapp.databinding.ActivityCadastroBinding
 import com.example.primeiraapp.model.User
-import com.example.primeiraapp.view.Cadastro
-import com.example.primeiraapp.view.Home
 import com.google.android.material.snackbar.Snackbar
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private var userList: ArrayList<User> = ArrayList()
+class Cadastro : AppCompatActivity() {
+
+    private lateinit var binding: ActivityCadastroBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityCadastroBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
         var parcelableArrayList = intent.getParcelableArrayListExtra<User>("userList")
-        if (parcelableArrayList != null) {
-            userList = parcelableArrayList
-        }
-
-        binding.singin.setOnClickListener {
-            navegaPraCadastro(userList)
-        }
 
         binding.btLogin.setOnClickListener {
             val nome = binding.editNome.text.toString()
@@ -49,15 +40,21 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 else -> {
-                    val user = userList.find { it.name == nome && it.password == senha }
-                    if (user != null) {
-                        navegaPraHome(nome)
-                    } else {
-                        mensagem(it, "Nome ou senha incorretos!")
-                    }
+                    if (parcelableArrayList == null)
+                        parcelableArrayList = ArrayList()
+
+                    parcelableArrayList!!.add(User(name = nome, password = senha))
+                    navegarParaLogin(parcelableArrayList!!)
                 }
             }
         }
+    }
+
+    private fun navegarParaLogin(userList: ArrayList<User>) {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putParcelableArrayListExtra("userList", userList)
+        startActivity(intent)
+        finish()
     }
 
     private fun mensagem(view: View, mensagem: String) {
@@ -65,17 +62,5 @@ class MainActivity : AppCompatActivity() {
         snackbar.setBackgroundTint(Color.parseColor("#FF0000"))
         snackbar.setTextColor(Color.parseColor("#FFFFFF"))
         snackbar.show()
-    }
-
-    private fun navegaPraHome(nome: String) {
-        val intent = Intent(this, Home::class.java)
-        intent.putExtra("nome", nome)
-        startActivity(intent)
-    }
-
-    private fun navegaPraCadastro(userList: ArrayList<User>) {
-        val intent = Intent(this, Cadastro::class.java)
-        intent.putParcelableArrayListExtra("userList", userList)
-        startActivity(intent)
     }
 }
